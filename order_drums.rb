@@ -1,3 +1,9 @@
+=begin
+ruby script for ordering all the drum samples found in this drum sample pack: http://warbeats.com/Community/Forums/aft/57
+matches file names to their respective names found in the $hash hash table, and then places them in their respective folders. it will create the folders if they don't exist
+takes two arguments. 1: location of drum samples 2: destination location
+=end
+
 require 'FileUtils'
 
 $recursionLevel = 0
@@ -124,6 +130,6 @@ end
 
 $out = ARGV[1]
 
-moveBetweenFiles ARGV[0]
+moveBetweenFiles ARGV[0] ARGV[1]
 
 puts $countHash.to_s
