@@ -5,8 +5,8 @@ nl_print() {
 	printf "\n$1\n"
 }
 
-nl_print "WARNING: both source and target drives must be directly connected to the computer, to ensure a stable connection whilst transferring data. e.g. not via USB hub."
-nl_print "Are both storage drives connected directly to the computer? [y/n]"
+nl_print "WARNING 1: The transfer process shouldn't take longer than 5 minutes. If it does, something may be wrong."
+nl_print "WARNING 2: Are both drives connected directly to the computer? e.g. not via USB hub [y/n]"
 
 read -n 1 dacd # dacd = drives are connected directly
 
