@@ -8,9 +8,9 @@ nl_print() {
 nl_print "WARNING 1: The transfer process shouldn't take longer than 5 minutes. If it does, something may be wrong."
 nl_print "WARNING 2: Are both drives connected directly to the computer? e.g. not via USB hub [y/n]"
 
-read -n 1 dacd # dacd = drives are connected directly
+read -n 1 input
 
-if [[ ! ( "$dacd" == "y" || "$dacd" == "Y" ) ]]
+if [[ ! ( "$input" == "y" || "$input" == "Y" || "$input" == "" ) ]]
 then
 	nl_print "Please connect both drives directly to the computer and restart this script."
 	exit 1
@@ -33,4 +33,4 @@ check_disk_is_connected () {
 check_disk_is_connected "$SOURCE_DISK"
 check_disk_is_connected "$TARGET_DISK"
 
-sudo rsync -avE --ignore-existing --exclude=".*" --delete --progress "$SOURCE_DISK/" "$TARGET_DISK/"
+sudo rsync -avE --delete --progress "$SOURCE_DISK/" "$TARGET_DISK/"
