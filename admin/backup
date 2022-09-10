@@ -20,6 +20,12 @@ fi
 SOURCE_DISK="/Volumes/1TB Emil SSD"
 TARGET_DISK="/Volumes/2TB Emil Backup"
 
+# ! -perm -o=r 			### find files which 'other' users don't have read permission for
+# -a -maxdepth 1 		### traverse a maximum depth of 1 (top level of directory)
+# -execdir echo {} ';' 	### remove preceding filepath from each entry. E.G. /Volumes/1TB Emil SSD/.Spotlight-V100 -> .Spotlight-V100
+
+UNREADABLE_DIRECTORIES=$(find "$SOURCE_DISK" ! -perm -o=r -a -maxdepth 1 -execdir echo {} ';')
+
 check_disk_is_connected () {
 	DISK_NAME=$1
 
@@ -33,4 +39,4 @@ check_disk_is_connected () {
 check_disk_is_connected "$SOURCE_DISK"
 check_disk_is_connected "$TARGET_DISK"
 
-sudo rsync -avE --delete --progress "$SOURCE_DISK/" "$TARGET_DISK/"
+sudo rsync -avE --delete --progress --exclude-from="-" "$SOURCE_DISK/" "$TARGET_DISK/" <<< "$UNREADABLE_DIRECTORIES"
